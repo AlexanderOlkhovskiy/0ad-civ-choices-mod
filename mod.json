@@ -1,0 +1,8 @@
+{
+	"name": "Civ choices",
+	"version": "0.0.22",
+	"label": "Civ choices",
+	"description": "Adds the civ choices dialog allowing to select one of mutually exclusive technologies at the start of the match.",
+	"dependencies": ["0ad=0.0.22"],
+	"type": "Feature"
+}

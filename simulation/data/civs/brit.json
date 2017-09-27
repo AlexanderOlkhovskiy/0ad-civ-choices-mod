@@ -68,6 +68,11 @@
 			"Description": "Druids increase attack rates of soldiers near them slightly."
 		}
 	],
+	"CivChoices":
+	[
+		"civ_choices/brit/spearman",
+		"civ_choices/brit/slinger"
+	],
 	"TeamBonuses":
 	[
 		{

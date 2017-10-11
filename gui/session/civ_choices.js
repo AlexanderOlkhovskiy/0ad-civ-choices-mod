@@ -1,9 +1,9 @@
 function initCivChoicesDialog()
 {
-	if (Engine.GetPlayerID() < 0)
+	if (g_ViewedPlayer < 0)
 		return;
 
-	let currentPlayer = g_Players[Engine.GetPlayerID()];
+	let currentPlayer = g_Players[g_ViewedPlayer];
 	let civChoices = g_CivData[currentPlayer.civ].CivChoices;
 	if (civChoices === undefined)
 		return;

@@ -7,7 +7,17 @@ function initCivChoicesDialog()
 	let civChoices = g_CivData[currentPlayer.civ].CivChoices;
 	if (civChoices === undefined)
 		return;
-	
+
+	for (let i = 0; i < civChoices.length; ++i)
+	{
+		let civChoiceTechResearched = Engine.GuiInterfaceCall("IsTechnologyResearched", {
+			"tech": civChoices[i],
+			"player": g_ViewedPlayer
+		});
+		if (civChoiceTechResearched)
+			return;
+	}
+
 	for (let i = 0; i < civChoices.length; ++i)
 	{
 		let civChoiceButton = Engine.GetGUIObjectByName("civChoice[" + i + "]");

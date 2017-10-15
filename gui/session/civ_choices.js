@@ -1,3 +1,6 @@
+const CIV_CHOICE_BUTTON_WIDTH = 200;
+const CIV_CHOICE_BUTTON_SPACING = 25;
+
 function initCivChoicesDialog()
 {
 	if (g_ViewedPlayer < 0)
@@ -18,14 +21,21 @@ function initCivChoicesDialog()
 			return;
 	}
 
+	let civChoicesDialogPanel = Engine.GetGUIObjectByName("civChoicesDialogPanel");
+	let civChoicesDialogPanelWidth = civChoicesDialogPanel.size.right - civChoicesDialogPanel.size.left;
+	let buttonsLength = CIV_CHOICE_BUTTON_WIDTH * civChoices.length + CIV_CHOICE_BUTTON_SPACING * (civChoices.length - 1);
+	let buttonsStart = (civChoicesDialogPanelWidth - buttonsLength) / 2;
+
 	for (let i = 0; i < civChoices.length; ++i)
 	{
+		let civChoiceTechData = GetTechnologyData(civChoices[i]);
+
 		let civChoiceButton = Engine.GetGUIObjectByName("civChoice[" + i + "]");
-		civChoiceButton.caption = GetTechnologyData(civChoices[i]).name.generic;
+		civChoiceButton.caption = civChoiceTechData.name.generic;
 
 		let size = civChoiceButton.size;
-		size.top = 20 * i;
-		size.bottom = 20 * (i + 1);
+		size.left = buttonsStart + (CIV_CHOICE_BUTTON_WIDTH + CIV_CHOICE_BUTTON_SPACING) * i;
+		size.right = size.left + CIV_CHOICE_BUTTON_WIDTH;
 		civChoiceButton.size = size;
 
 		civChoiceButton.onPress = (function(tech) { return function() {
@@ -33,7 +43,10 @@ function initCivChoicesDialog()
 			Engine.GetGUIObjectByName("civChoicesDialogPanel").hidden = true;
 		}})(civChoices[i]);
 
+		let civChoiceIcon = Engine.GetGUIObjectByName("civChoiceIcon[" + i + "]");
+		civChoiceIcon.sprite = "stretched:session/portraits/" + civChoiceTechData.icon;
+
 		civChoiceButton.hidden = false;
 	}
-	Engine.GetGUIObjectByName("civChoicesDialogPanel").hidden = false;
+	civChoicesDialogPanel.hidden = false;
 }
